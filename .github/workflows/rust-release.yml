@@ -170,8 +170,11 @@ jobs:
           security import "$cert_path" -k "$keychain_path" -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
           security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" "$keychain_path"
 
-          mapfile -t codesign_hashes < <(security find-identity -v -p codesigning "$keychain_path" \
-            | awk 'match($0, /[0-9A-F]{40}/) { print substr($0, RSTART, RLENGTH) }' \
+          codesign_hashes=()
+          while IFS= read -r hash; do
+            [[ -n "$hash" ]] && codesign_hashes+=("$hash")
+          done < <(security find-identity -v -p codesigning "$keychain_path" \
+            | sed -n 's/.*\([0-9A-F]\{40\}\).*/\1/p' \
             | sort -u)
 
           if ((${#codesign_hashes[@]} == 0)); then
