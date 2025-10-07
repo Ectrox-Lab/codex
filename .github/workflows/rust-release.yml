@@ -27,7 +27,7 @@ env:
   # APPLE_CERTIFICATE_PASSWORD: $({ secrets.APPLE_CERTIFICATE_PASSWORD })
   # SHA-1 fingerprint of the test certificate; codesign accepts this format.
   # APPLE_CODESIGN_IDENTITY: 4E7E4C6F30634C3C9E308723F109FE7C83C061ED
-  CODESIGN_DEBUG: false
+  CODESIGN_DEBUG: true
 
 jobs:
   tag-check:
@@ -170,6 +170,13 @@ jobs:
           security import "$cert_path" -k "$keychain_path" -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
           security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" "$keychain_path"
 
+          if [[ "${CODESIGN_DEBUG:-}" == "true" ]]; then
+            echo "::group::Imported signing identities"
+              security find-identity -v -p codesigning "$keychain_path" || true
+              security find-certificate -a -Z "$keychain_path" || true
+            echo "::endgroup::"
+          fi
+
           codesign_hashes=()
           while IFS= read -r hash; do
             [[ -n "$hash" ]] && codesign_hashes+=("$hash")
@@ -195,13 +202,6 @@ jobs:
           APPLE_CODESIGN_IDENTITY="${codesign_hashes[0]}"
           export APPLE_CODESIGN_IDENTITY
           echo "Resolved codesign identity: $APPLE_CODESIGN_IDENTITY"
-
-          if [[ "${CODESIGN_DEBUG:-}" == "true" ]]; then
-            echo "::group::Imported signing identities"
-              security find-identity -v -p codesigning "$keychain_path" || true
-              security find-certificate -a -Z "$keychain_path" || true
-            echo "::endgroup::"
-          fi
 
           rm -f "$cert_path"
 
