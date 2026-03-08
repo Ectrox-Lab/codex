@@ -1,0 +1,18 @@
+# 忽略临时文件
+*.tmp
+*.swp
+*.bak
+
+# 忽略大型二进制文件（如果有）
+*.pth
+*.onnx
+*.pkl
+
+# 忽略环境变量文件
+.env
+*.env
+
+# 忽略日志中的敏感信息（如果有）
+*token*
+*secret*
+*password*
