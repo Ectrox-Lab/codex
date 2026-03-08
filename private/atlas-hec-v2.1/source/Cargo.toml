@@ -1,0 +1,55 @@
+[package]
+name = "agl_mwe"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "agl_mwe"
+path = "src/main.rs"
+
+[[bin]]
+name = "atlas_v3"
+path = "src/main_5k.rs"
+
+[[bin]]
+name = "quick"
+path = "src/main_quick.rs"
+
+[[bin]]
+name = "optimized"
+path = "src/main_optimized.rs"
+
+[[bin]]
+name = "debug"
+path = "src/main_debug.rs"
+
+[[bin]]
+name = "gridworld"
+path = "src/bin/gridworld.rs"
+
+[[bin]]
+name = "gridworld_fast"
+path = "src/bin/gridworld_fast.rs"
+
+[[bin]]
+name = "gridworld_quick"
+path = "src/bin/gridworld_quick.rs"
+
+[[bin]]
+name = "atlas_burn"
+path = "src/bin/atlas_burn.rs"
+
+[[bin]]
+name = "atlas_superbrain_real"
+path = "src/bin/atlas_superbrain_real.rs"
+
+[dependencies]
+fastrand = "2.3.0"
+rand = "0.8"
+rayon = "1.8"
+
+[profile.release]
+rpath = true
+
+libloading = "0.8"
+fastrand = "2"

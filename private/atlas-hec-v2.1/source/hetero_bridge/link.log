@@ -1,0 +1,4 @@
+/usr/bin/ld: kernels.o: warning: relocation against `_Z11stdp_kernelPffi' in read-only section `.text.startup'
+/usr/bin/ld: kernels.o: relocation R_X86_64_PC32 against symbol `_Z17izhikevich_kernelPfS_S_PKhS_iii' can not be used when making a shared object; recompile with -fPIC
+/usr/bin/ld: final link failed: bad value
+collect2: error: ld returned 1 exit status

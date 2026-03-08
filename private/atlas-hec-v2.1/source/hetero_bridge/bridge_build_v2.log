@@ -1,0 +1,37 @@
+hec_bridge_v2.cpp: In function ‘void izhikevich_kernel_simple(float*, float*, float*, const uint8_t*, float*, int, int, int)’:
+hec_bridge_v2.cpp:33:15: error: ‘blockIdx’ was not declared in this scope
+   33 |     int idx = blockIdx.x * blockDim.x + threadIdx.x;
+      |               ^~~~~~~~
+hec_bridge_v2.cpp:33:28: error: ‘blockDim’ was not declared in this scope
+   33 |     int idx = blockIdx.x * blockDim.x + threadIdx.x;
+      |                            ^~~~~~~~
+hec_bridge_v2.cpp:33:41: error: ‘threadIdx’ was not declared in this scope
+   33 |     int idx = blockIdx.x * blockDim.x + threadIdx.x;
+      |                                         ^~~~~~~~~
+hec_bridge_v2.cpp:59:13: error: ‘atomicAdd’ was not declared in this scope
+   59 |             atomicAdd(&motor[motor_idx], 0.01f);
+      |             ^~~~~~~~~
+hec_bridge_v2.cpp: In function ‘void stdp_kernel_simple(float*, const float*, float, int)’:
+hec_bridge_v2.cpp:73:15: error: ‘blockIdx’ was not declared in this scope
+   73 |     int idx = blockIdx.x * blockDim.x + threadIdx.x;
+      |               ^~~~~~~~
+hec_bridge_v2.cpp:73:28: error: ‘blockDim’ was not declared in this scope
+   73 |     int idx = blockIdx.x * blockDim.x + threadIdx.x;
+      |                            ^~~~~~~~
+hec_bridge_v2.cpp:73:41: error: ‘threadIdx’ was not declared in this scope
+   73 |     int idx = blockIdx.x * blockDim.x + threadIdx.x;
+      |                                         ^~~~~~~~~
+hec_bridge_v2.cpp: In function ‘int hec_step_hybrid(const uint8_t*, float*, size_t, size_t)’:
+hec_bridge_v2.cpp:173:31: error: expected primary-expression before ‘<’ token
+  173 |     izhikevich_kernel_simple<<<blocks, threads>>>(
+      |                               ^
+hec_bridge_v2.cpp:173:49: error: expected primary-expression before ‘>’ token
+  173 |     izhikevich_kernel_simple<<<blocks, threads>>>(
+      |                                                 ^
+hec_bridge_v2.cpp: In function ‘int hec_stdp_async(float)’:
+hec_bridge_v2.cpp:207:25: error: expected primary-expression before ‘<’ token
+  207 |     stdp_kernel_simple<<<blocks, threads, 0, stream_stdp>>>(
+      |                         ^
+hec_bridge_v2.cpp:207:59: error: expected primary-expression before ‘>’ token
+  207 |     stdp_kernel_simple<<<blocks, threads, 0, stream_stdp>>>(
+      |                                                           ^
